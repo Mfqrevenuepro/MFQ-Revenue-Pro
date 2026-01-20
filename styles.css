@@ -953,6 +953,11 @@ a.logo {
   .faq-body p {
     line-height: 1.4;
 }
+
+.container.contact-grid a {
+    text-decoration: none;
+    color: black;
+}
   /* Responsive */
   @media (max-width: 640px) {
     .faq-section {
