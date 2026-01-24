@@ -958,7 +958,6 @@ a.logo {
     text-decoration: none;
     color: black;
 }
-
   /* Responsive */
   @media (max-width: 640px) {
     .faq-section {
