@@ -138,6 +138,18 @@ document.addEventListener("DOMContentLoaded", () => {
   dotsWrap?.addEventListener("mouseenter", stopAuto);
   dotsWrap?.addEventListener("mouseleave", startAuto);
 
+  let startX = 0;
+  track?.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+    stopAuto();
+  }, { passive: true });
+  track?.addEventListener("touchend", e => {
+    let diff = startX - e.changedTouches[0].clientX;
+    if (diff > 40) next();
+    else if (diff < -40) prev();
+    startAuto();
+  }, { passive: true });
+
   // ── Smooth anchor scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", function (e) {
