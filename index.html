@@ -367,6 +367,7 @@
               <input type="hidden" name="_subject" value="New Contact Form Submission - RevDale Practice Solutions" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_next" value="https://mfqrevenuepro.github.io/MFQ-Revenue-Pro/thankyou.html" />
+              <input type="hidden" name="_autoresponse" value="Thank you for reaching out to RevDale Practice Solutions! We have received your message and will get back to you within one business day." />
               <div class="form-row">
                 <input type="text" id="name" name="name" placeholder="Full name" required />
                 <input type="email" id="email" name="email" placeholder="Email address" required />
@@ -417,6 +418,103 @@
       </div>
     </div>
   </footer>
+
+  <!-- ── SUCCESS POPUP MODAL ── -->
+  <div class="popup-overlay" id="successPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-hidden="true">
+    <div class="popup-particles" id="popupParticles"></div>
+
+    <!-- Animated gradient border wrapper -->
+    <div class="popup-border-wrap" id="popupCard">
+      <div class="popup-card">
+
+        <!-- Glow rings (decorative, clipped outside card) -->
+        <div class="popup-ring r1"></div>
+        <div class="popup-ring r2"></div>
+
+        <!-- Floating sparkle stars -->
+        <span class="popup-sparkle sp1">✦</span>
+        <span class="popup-sparkle sp2">✦</span>
+        <span class="popup-sparkle sp3">✦</span>
+        <span class="popup-sparkle sp4">✦</span>
+        <span class="popup-sparkle sp5">✦</span>
+
+        <!-- Close X button (top-right) -->
+        <button class="popup-x-btn" id="popupCloseBtn" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <!-- Icon + orbit -->
+        <div class="popup-icon-wrap">
+          <div class="popup-orbit"></div>
+          <div class="popup-icon-bg"></div>
+          <svg class="popup-check" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle class="popup-check-circle" cx="26" cy="26" r="24"/>
+            <path class="popup-check-path" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+          <div class="popup-icon-pulse"></div>
+          <div class="popup-icon-pulse p2"></div>
+        </div>
+
+        <!-- Body -->
+        <div class="popup-body">
+          <p class="popup-badge">
+            <span class="popup-badge-dot"></span>
+            Message Sent Successfully
+          </p>
+          <h2 class="popup-title" id="popupTitle">Thank You!</h2>
+          <p class="popup-subtitle">
+            We've received your message and our team will get back to you within <strong>one business day</strong>.
+          </p>
+
+          <!-- Star rating (decorative trust signal) -->
+          <div class="popup-stars" aria-label="5 star rated service">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span class="popup-stars-label">Trusted by 85+ providers</span>
+          </div>
+
+          <!-- Stat chips -->
+          <div class="popup-chips">
+            <div class="popup-chip">
+              <span class="chip-icon">⚡</span>
+              <span>1-Day Response</span>
+            </div>
+            <div class="popup-chip">
+              <span class="chip-icon">🔒</span>
+              <span>100% Confidential</span>
+            </div>
+            <div class="popup-chip">
+              <span class="chip-icon">🏆</span>
+              <span>150+ Awards</span>
+            </div>
+          </div>
+
+          <div class="popup-divider"></div>
+
+          <!-- Contact info -->
+          <div class="popup-info-row">
+            <div class="popup-info-item">
+              <span class="popup-info-icon">📧</span>
+              <span>Confirmation sent to your email</span>
+            </div>
+            <div class="popup-info-item">
+              <span class="popup-info-icon">📞</span>
+              <span>Call us: <a href="tel:+17274338268">+1 (727) 433-8268</a></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer CTA -->
+        <div class="popup-footer">
+          <button class="popup-close-main-btn" id="popupCloseBtnMain" aria-label="Close dialog">
+            Got it, thanks!
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 </body>
 
