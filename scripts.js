@@ -233,4 +233,142 @@ document.addEventListener("DOMContentLoaded", () => {
 
     ScrollTrigger.refresh();
   });
+
+  // ══════════════════════════════════════
+  // SUCCESS POPUP MODAL
+  // ══════════════════════════════════════
+  const popup         = document.getElementById("successPopup");
+  const popupCard     = document.getElementById("popupCard");
+  const closeBtnX     = document.getElementById("popupCloseBtn");
+  const closeBtnMain  = document.getElementById("popupCloseBtnMain");
+  const particlesWrap = document.getElementById("popupParticles");
+  const contactForm   = document.getElementById("contactForm");
+  const submitBtn     = contactForm ? contactForm.querySelector('button[type="submit"]') : null;
+
+  // ── Particle field ──────────────────────────────────
+  const PARTICLE_COLORS = [
+    "rgba(45,95,166,.7)", "rgba(107,140,186,.6)",
+    "rgba(155,181,212,.5)", "rgba(255,255,255,.35)",
+    "rgba(74,222,128,.5)", "rgba(56,189,248,.4)"
+  ];
+
+  function buildParticles() {
+    if (!particlesWrap) return;
+    particlesWrap.innerHTML = "";
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.className = "popup-particle";
+      const size = 4 + Math.random() * 12;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random() * 100}%;
+        bottom:${Math.random() * 60}%;
+        background:${PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)]};
+        --dur:${3 + Math.random() * 4}s;
+        --delay:${Math.random() * 3}s;
+        filter:blur(${Math.random() < .35 ? 1 : 0}px);
+      `;
+      particlesWrap.appendChild(p);
+    }
+  }
+
+  // ── Confetti burst ──────────────────────────────────
+  const CONFETTI_COLORS = [
+    "#2d5fa6","#6b8cba","#9bb5d4","#4ade80",
+    "#facc15","#f472b6","#38bdf8","#a78bfa","#fb923c"
+  ];
+
+  function launchConfetti() {
+    const count = 100;
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("div");
+      el.className = "confetti-piece";
+      const angle  = Math.random() * 360;
+      const rad    = (angle * Math.PI) / 180;
+      const startX = cx + Math.cos(rad) * (Math.random() * 50);
+      const startY = cy + Math.sin(rad) * (Math.random() * 50);
+      const size   = 6 + Math.random() * 12;
+      const spin   = (-220 + Math.random() * 440) + "deg";
+      const dur    = 1.5 + Math.random() * 2;
+      const delay  = Math.random() * 0.55;
+      const shape  = Math.random() < .4 ? "50%" : Math.random() < .5 ? "0%" : "3px";
+      el.style.cssText = `
+        left:${startX}px; top:${startY}px;
+        width:${size}px; height:${size * (Math.random() < .5 ? 1 : .4)}px;
+        background:${CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]};
+        border-radius:${shape};
+        --dur:${dur}s; --delay:${delay}s; --spin:${spin};
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), (dur + delay) * 1000 + 300);
+    }
+  }
+
+  // ── Open / close ────────────────────────────────────
+  function openPopup() {
+    if (!popup) return;
+    buildParticles();
+    popup.removeAttribute("aria-hidden");
+    popup.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    requestAnimationFrame(() => {
+      setTimeout(launchConfetti, 180);
+    });
+  }
+
+  function closePopup() {
+    if (!popup) return;
+    popup.classList.remove("is-visible");
+    popup.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  // Both close buttons
+  closeBtnX?.addEventListener("click", closePopup);
+  closeBtnMain?.addEventListener("click", closePopup);
+
+  // Backdrop click
+  popup?.addEventListener("click", (e) => {
+    if (!popupCard?.contains(e.target)) closePopup();
+  });
+
+  // Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && popup?.classList.contains("is-visible")) closePopup();
+  });
+
+  // ── Form submit intercept ───────────────────────────
+  contactForm?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
+    }
+
+    try {
+      const formData = new FormData(contactForm);
+      await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+    } catch (_) {
+      // Still show popup even on network error
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Send Message &rarr;";
+      }
+      contactForm.reset();
+      openPopup();
+    }
+  });
 });
