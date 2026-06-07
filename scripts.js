@@ -209,7 +209,9 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".count-number").forEach(el => {
         if (el.dataset.animated === "true") return;
         el.dataset.animated = "true";
-        const target = Number(el.dataset.target) || 0;
+        const rawTarget = el.dataset.target || "0";
+        const hasPlus = rawTarget.includes("+");
+        const target = parseFloat(rawTarget) || 0;
         const duration = Math.min(3.5, 1.2 + target / 80);
         const obj = { v: 0 };
         gsap.to(obj, {
@@ -218,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
             el.textContent = Math.floor(obj.v).toLocaleString();
           },
           onComplete() {
-            el.textContent = target.toLocaleString() + "+";
+            el.textContent = target.toLocaleString() + (hasPlus ? "+" : "");
           }
         });
       });
