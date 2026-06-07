@@ -477,7 +477,7 @@ a {
 
 .counter-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem
 }
 
@@ -790,7 +790,7 @@ a {
   font-size: 1.05rem;
   line-height: 1.75;
   color: var(--text);
-  font-style: italic;
+  font-style: normal;
   margin-bottom: 1.25rem;
   position: relative;
   padding-left: 1.5rem
