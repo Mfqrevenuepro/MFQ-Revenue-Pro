@@ -545,18 +545,19 @@ a {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.35rem
 }
 
 .service-card {
   background: var(--white);
   border-radius: 20px;
-  padding: 2.25rem 1.5rem 1.75rem;
+  padding: 2.5rem 1.6rem 2rem;
   border: 1px solid rgba(107, 140, 186, .1);
   transition: transform .3s, box-shadow .3s, border-color .3s;
   cursor: default;
-  text-align: center
+  text-align: center;
+  min-height: 270px
 }
 
 .service-card:hover {
@@ -583,7 +584,7 @@ a {
 }
 
 .service-card h3 {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--navy);
   margin-bottom: .6rem;
@@ -592,8 +593,20 @@ a {
 
 .service-card p {
   color: var(--muted);
-  font-size: .88rem;
+  font-size: .92rem;
   line-height: 1.6
+}
+
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ── FAQ/SERVICES DETAIL ── */
